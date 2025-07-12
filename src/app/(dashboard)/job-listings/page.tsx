@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import ButtonActionTable from "@/components/organisms/ButtonActionTable";
 import { Badge } from "@/components/ui/badge";
 import {

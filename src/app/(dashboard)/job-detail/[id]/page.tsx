@@ -5,13 +5,6 @@ import JobDetail from "@/components/organisms/JobDetail";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import prisma from "../../../../../lib/prisma";
 
-type paramsType = {
-	id: string;
-};
-interface JobDetailPageProps {
-	params: paramsType;
-}
-
 export const revalidate = 0;
 
 async function getDetailJob(id: string) {

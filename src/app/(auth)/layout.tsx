@@ -4,8 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { authOptions } from "../api/auth/[...nextauth]/route";
-
+import { authOptions } from "@/lib/auth";
 // Font setup
 const geistSans = Geist({
   variable: "--font-geist-sans",
