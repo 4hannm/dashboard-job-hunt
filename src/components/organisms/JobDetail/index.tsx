@@ -8,6 +8,8 @@ import React, { FC } from "react";
 
 type JobDetailType = {
   CategoryJob: CategoryJob | null;
+  benefits?: Array<{ benefit: string; description: string }> | null;
+  requiredSkills?: string[] | null;
 } & Job;
 
 interface JobDetailProps {
@@ -15,7 +17,7 @@ interface JobDetailProps {
 }
 
 const JobDetail: FC<JobDetailProps> = ({ detail }) => {
-  const benefits: any = detail?.benefits;
+  const benefits = detail?.benefits ?? [];
 
   return (
     <div>
@@ -26,7 +28,7 @@ const JobDetail: FC<JobDetailProps> = ({ detail }) => {
             <div
               className="text-gray-500 mt-3"
               dangerouslySetInnerHTML={{
-                __html: detail?.description!!,
+                __html: detail?.description ?? "",
               }}
             ></div>
           </div>
@@ -35,7 +37,7 @@ const JobDetail: FC<JobDetailProps> = ({ detail }) => {
             <div
               className="text-gray-500 mt-3"
               dangerouslySetInnerHTML={{
-                __html: detail?.responsibility!!,
+                __html: detail?.responsibility ?? "",
               }}
             ></div>
           </div>
@@ -44,7 +46,7 @@ const JobDetail: FC<JobDetailProps> = ({ detail }) => {
             <div
               className="text-gray-500 mt-3"
               dangerouslySetInnerHTML={{
-                __html: detail?.whoYouAre!!,
+                __html: detail?.whoYouAre ?? "",
               }}
             ></div>
           </div>
@@ -53,7 +55,7 @@ const JobDetail: FC<JobDetailProps> = ({ detail }) => {
             <div
               className="text-gray-500 mt-3"
               dangerouslySetInnerHTML={{
-                __html: detail?.niceToHaves!!,
+                __html: detail?.niceToHaves ?? "",
               }}
             ></div>
           </div>
@@ -62,11 +64,13 @@ const JobDetail: FC<JobDetailProps> = ({ detail }) => {
           <div className="text-3xl font-semibold">About this role</div>
 
           <div className="shadow p-3 text-center my-6">
-            {detail?.applicants}{" "}
-            <span className="text-gray-500">of {detail?.needs} capacity</span>
+            {detail?.applicants ?? 0}{" "}
+            <span className="text-gray-500">
+              of {detail?.needs ?? 0} capacity
+            </span>
             <Progress
               className="mt-3"
-              value={(detail?.applicants || 0) / (detail?.needs || 0) / 100}
+              value={((detail?.applicants ?? 0) / (detail?.needs || 1)) * 100}
             />
           </div>
 
@@ -83,12 +87,12 @@ const JobDetail: FC<JobDetailProps> = ({ detail }) => {
             </div>
             <div className="flex justify-between">
               <div className="text-gray-500">Job Type</div>
-              <div className="font-semibold">{detail?.jobType}</div>
+              <div className="font-semibold">{detail?.jobType ?? "-"}</div>
             </div>
             <div className="flex justify-between">
               <div className="text-gray-500">Salary</div>
               <div className="font-semibold">
-                ${detail?.salaryFrom} - ${detail?.salaryTo} USD
+                ${detail?.salaryFrom ?? 0} - ${detail?.salaryTo ?? 0} USD
               </div>
             </div>
           </div>
@@ -97,9 +101,8 @@ const JobDetail: FC<JobDetailProps> = ({ detail }) => {
 
           <div className="my-10">
             <div className="text-3xl font-semibold mb-4">Category</div>
-
             <div className="space-x-5">
-              <Badge>{detail?.CategoryJob?.name}</Badge>
+              <Badge>{detail?.CategoryJob?.name ?? "-"}</Badge>
             </div>
           </div>
 
@@ -107,9 +110,8 @@ const JobDetail: FC<JobDetailProps> = ({ detail }) => {
 
           <div className="my-10">
             <div className="text-3xl font-semibold mb-4">Required Skills</div>
-
             <div className="space-x-5">
-              {detail?.requiredSkills.map((item: string, i: number) => (
+              {detail?.requiredSkills?.map((item, i) => (
                 <Badge variant="outline" key={i}>
                   {item}
                 </Badge>
@@ -126,10 +128,9 @@ const JobDetail: FC<JobDetailProps> = ({ detail }) => {
         </div>
 
         <div className="grid grid-cols-4 gap-5 mt-9">
-          {benefits?.map((item: any) => (
-            <div key={item}>
+          {benefits.map((item, idx) => (
+            <div key={idx}>
               <PartyPopperIcon className="w-10 h-10 text-primary mb-6" />
-
               <div className="text-lg font-semibold mb-3">{item.benefit}</div>
               <div className="text-gray-500">{item.description}</div>
             </div>

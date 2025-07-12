@@ -1,45 +1,52 @@
+"use client";
+
+import { FC, useEffect, useState, useRef } from "react";
 import { FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { FC, useEffect, useRef } from "react";
+import { UseFormReturn } from "react-hook-form";
 
 interface CKEditorProps {
-  form: any;
-  name: any;
-  editorLoaded?: boolean;
+  form: UseFormReturn<any>;
+  name: string;
 }
 
-const CKEditor: FC<CKEditorProps> = ({ form, name, editorLoaded }) => {
-  const editorRef = useRef<any>();
-  const { CKEditor, ClassicEditor } = editorRef.current || {};
+type EditorModule = {
+  CKEditor: (props: any) => JSX.Element;
+  ClassicEditor: unknown;
+};
+
+const CKEditor: FC<CKEditorProps> = ({ form, name }) => {
+  const editorRef = useRef<EditorModule>();
+  const [editorLoaded, setEditorLoaded] = useState(false);
 
   useEffect(() => {
     editorRef.current = {
       CKEditor: require("@ckeditor/ckeditor5-react").CKEditor,
       ClassicEditor: require("@ckeditor/ckeditor5-build-classic"),
     };
+    setEditorLoaded(true);
   }, []);
 
   return (
     <>
       {editorLoaded ? (
-        <div>
-          <CKEditor
-            editor={ClassicEditor}
-            data={form.getValues(name)}
-            onChange={(event: any, editor: any) => {
-              const data = editor.getData();
-              form.setValue(name, data);
-            }}
-          />
-          <FormField
-            control={form.control}
-            name={name}
-            render={({ field }) => (
-              <FormItem>
-                <FormMessage className="mt-3" />
-              </FormItem>
-            )}
-          />
-        </div>
+        <FormField
+          control={form.control}
+          name={name}
+          render={({ field }) => (
+            <FormItem>
+              {editorRef.current?.CKEditor && (
+                <editorRef.current.CKEditor
+                  editor={editorRef.current.ClassicEditor}
+                  data={field.value}
+                  onChange={(_: unknown, editor: any) => {
+                    form.setValue(name, editor.getData());
+                  }}
+                />
+              )}
+              <FormMessage className="mt-3" />
+            </FormItem>
+          )}
+        />
       ) : (
         <div>Loading...</div>
       )}

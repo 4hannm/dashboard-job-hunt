@@ -6,9 +6,8 @@ import React, { FC } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-interface HeaderProps {}
 
-const Header: FC<HeaderProps> = ({}) => {
+const Header: FC = ({}) => {
   const router = useRouter();
   const { data: session } = useSession();
 

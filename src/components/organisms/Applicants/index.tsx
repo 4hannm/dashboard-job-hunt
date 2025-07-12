@@ -1,5 +1,4 @@
 import { FC } from "react";
-
 import {
   Table,
   TableBody,
@@ -8,17 +7,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { JOB_APPLICANTS_COLUMNS, JOB_APPLICANT_DATA } from "@/constants";
+import { JOB_APPLICANTS_COLUMNS } from "@/constants";
 import ButtonActionTable from "../ButtonActionTable";
 import { Applicant, User } from "@prisma/client";
-import { Badge } from "@/components/ui/badge";
-
-type applicantType = {
-  user: User | null;
-} & Applicant;
 
 interface ApplicantsProps {
-  applicants: any;
+  applicants: (Applicant & { user: User | null })[];
 }
 
 const Applicants: FC<ApplicantsProps> = ({ applicants }) => {
@@ -33,18 +27,14 @@ const Applicants: FC<ApplicantsProps> = ({ applicants }) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {applicants && (
-          <>
-            {applicants.map((item: any, i: number) => (
-              <TableRow key={item.id + i}>
-                <TableCell>{item.user.name}</TableCell>
-                <TableCell>
-                  <ButtonActionTable url="" />
-                </TableCell>
-              </TableRow>
-            ))}
-          </>
-        )}
+        {applicants.map((item, i) => (
+          <TableRow key={item.id + i}>
+            <TableCell>{item.user?.name ?? '-'}</TableCell>
+            <TableCell>
+              <ButtonActionTable url="" />
+            </TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   );

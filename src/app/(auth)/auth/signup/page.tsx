@@ -13,14 +13,11 @@ import { signUpFormSchema } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { FC } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useToast } from "@/components/ui/use-toast";
 
-interface SignUpPageProps {}
-
-const SignUpPage: FC<SignUpPageProps> = ({}) => {
+const SignUpPage = () => {
   const form = useForm<z.infer<typeof signUpFormSchema>>({
     resolver: zodResolver(signUpFormSchema),
   });
@@ -101,7 +98,7 @@ const SignUpPage: FC<SignUpPageProps> = ({}) => {
                 )}
               />
 
-              <Button className=" w-full">Sign Up</Button>
+              <Button className="w-full">Sign Up</Button>
 
               <div className="text-sm">
                 Already have an account{" "}

@@ -1,9 +1,8 @@
 import { NextAuthOptions } from "next-auth";
-
-import { comparePassword } from "@/lib/utils";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "../../../../../lib/prisma";
 import NextAuth from "next-auth/next";
+import { comparePassword } from "@/lib/utils";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -11,20 +10,16 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: {
-          label: "email",
-          type: "email",
-        },
-        password: {
-          label: "password",
-          type: "password",
-        },
+        email: { label: "email", type: "email" },
+        password: { label: "password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials.password) {
+          return null;
+        }
+
         const user = await prisma.company.findFirst({
-          where: {
-            email: credentials?.email,
-          },
+          where: { email: credentials.email },
         });
 
         if (!user) {
@@ -32,7 +27,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         const isMatch = await comparePassword(
-          credentials?.password!!,
+          credentials.password,
           user.password
         );
 
@@ -50,15 +45,15 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     jwt({ token, account, user }) {
-      if (account) {
-        token.id = user.id;
+      if (account && user) {
+        token.id = (user as any).id;
       }
-
       return token;
     },
-    async session({ session, token, user }) {
-      session.user.id = token.id;
-
+    async session({ session, token }) {
+      if (session?.user && token?.id) {
+        session.user.id = token.id as string;
+      }
       return session;
     },
   },

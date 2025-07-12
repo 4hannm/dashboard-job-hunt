@@ -3,15 +3,15 @@
 import { supabaseGetPublicUrl } from "@/lib/supabase";
 import Image from "next/image";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { UseFormReturn } from "react-hook-form";
 
 interface CustomUploadProps {
-  form: any;
+  form: UseFormReturn<any>;
   name: string;
 }
 
 export default function CustomUpload({ form, name }: CustomUploadProps) {
   const [previewImg, setPreviewImg] = useState("");
-
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +37,7 @@ export default function CustomUpload({ form, name }: CustomUploadProps) {
     if (form.getValues(name) !== "") {
       getImage();
     }
-  }, []);
+  }, [form, name]);
 
   return (
     <div className="inline-flex items-center gap-8">
