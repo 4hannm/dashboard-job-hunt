@@ -3,6 +3,8 @@ import DialogAddBenefit from "./DialogAddBenefit";
 import { FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { PartyPopper, X } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";
+import { jobFormSchema } from "@/lib/form-schema";
+import z from "zod";
 
 type BenefitItem = {
   benefit: string;
@@ -10,7 +12,7 @@ type BenefitItem = {
 };
 
 interface InputBenefitsProps {
-  form: UseFormReturn<{ benefits: BenefitItem[] }>;
+  form: UseFormReturn<z.infer<typeof jobFormSchema>>;
 }
 
 const InputBenefits: FC<InputBenefitsProps> = ({ form }) => {

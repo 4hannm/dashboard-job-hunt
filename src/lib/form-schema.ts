@@ -49,7 +49,6 @@ export const jobFormSchema = z.object({
       description: z.string(),
     })
     .array()
-    .nonempty({ message: "Benefits must be 1 benefit" }),
 });
 
 export const overviewFormSchema = z.object({

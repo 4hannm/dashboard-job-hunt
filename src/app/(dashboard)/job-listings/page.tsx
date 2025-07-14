@@ -18,7 +18,6 @@ import moment from "moment";
 import { getServerSession } from "next-auth";
 import prisma from "../../../../lib/prisma";
 
-interface JobListingsPageProps {}
 
 export const revalidate = 0;
 
@@ -34,7 +33,7 @@ async function getDataJobs() {
 	return jobs;
 }
 
-const JobListingsPage: FC<JobListingsPageProps> = async ({}) => {
+const JobListingsPage: FC = async ({}) => {
 	const jobs = await getDataJobs();
 
 	console.log(jobs);

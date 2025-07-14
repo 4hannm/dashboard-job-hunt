@@ -326,9 +326,7 @@ const OverviewForm: FC<OverviewFormProps> = ({ detail }) => {
           >
             <CKEditor
               form={form}
-              name="description"
-              editorLoaded={editorLoaded}
-            />
+              name="description"            />
           </FieldInput>
 
           <div className="flex justify-end">

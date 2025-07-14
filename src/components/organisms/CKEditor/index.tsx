@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { FC, useEffect, useState, useRef } from "react";
+import { FC, useEffect, useState, useRef, JSX } from "react";
 import { FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { UseFormReturn } from "react-hook-form";
 
@@ -15,7 +16,7 @@ type EditorModule = {
 };
 
 const CKEditor: FC<CKEditorProps> = ({ form, name }) => {
-  const editorRef = useRef<EditorModule>();
+  const editorRef = useRef<EditorModule | null>(null);
   const [editorLoaded, setEditorLoaded] = useState(false);
 
   useEffect(() => {

@@ -17,12 +17,17 @@ async function getDetailJob(id: string) {
   });
 }
 
-export default async function JobDetailPage({
-  params,
-}: {
-  params: { id: string };
+export default async function JobDetailPage(props: {
+  params: Promise<{ id: string }>;
 }) {
+  const params = await props.params;
   const job = await getDetailJob(params.id);
+  const parsedJob = job && {
+    ...job,
+    benefits: Array.isArray(job.benefits)
+      ? (job.benefits as Array<{ benefit: string; description: string }>)
+      : [],
+  };
 
   return (
     <div>
@@ -45,10 +50,10 @@ export default async function JobDetailPage({
           <TabsTrigger value="jobDetails">Job Details</TabsTrigger>
         </TabsList>
         <TabsContent value="applicants">
-          <Applicants applicants={job?.applicant} />
+          <Applicants applicants={job?.applicant ?? []} />
         </TabsContent>
         <TabsContent value="jobDetails">
-          <JobDetail detail={job} />
+          <JobDetail detail={parsedJob} />
         </TabsContent>
       </Tabs>
     </div>

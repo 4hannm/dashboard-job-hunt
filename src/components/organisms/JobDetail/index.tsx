@@ -77,12 +77,15 @@ const JobDetail: FC<JobDetailProps> = ({ detail }) => {
           <div className="mb-10 space-y-5">
             <div className="flex justify-between">
               <div className="text-gray-500">Apply Before</div>
-              <div className="font-semibold">{dateFormat(detail?.dueDate)}</div>
+              <div className="font-semibold">
+                {" "}
+                {detail?.dueDate ? dateFormat(detail.dueDate) : "-"}
+              </div>
             </div>
             <div className="flex justify-between">
               <div className="text-gray-500">Job Posted On</div>
               <div className="font-semibold">
-                {dateFormat(detail?.datePosted)}
+                {detail?.datePosted ? dateFormat(detail.datePosted) : "-"}
               </div>
             </div>
             <div className="flex justify-between">
