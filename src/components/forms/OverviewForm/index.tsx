@@ -151,7 +151,7 @@ const OverviewForm: FC<OverviewFormProps> = ({ detail }) => {
                     <FormLabel>Company Name</FormLabel>
                     <FormControl>
                       <Input
-                        className="w-[450px]"
+                        className="w-full max-w-md"
                         placeholder="Twitter"
                         {...field}
                       />
@@ -168,7 +168,7 @@ const OverviewForm: FC<OverviewFormProps> = ({ detail }) => {
                     <FormLabel>Website</FormLabel>
                     <FormControl>
                       <Input
-                        className="w-[450px]"
+                        className="w-full max-w-md"
                         placeholder="https://twitter.com"
                         {...field}
                       />
@@ -189,7 +189,7 @@ const OverviewForm: FC<OverviewFormProps> = ({ detail }) => {
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="w-[450px]">
+                        <SelectTrigger className="w-full max-w-md">
                           <SelectValue placeholder="Location" />
                         </SelectTrigger>
                       </FormControl>
@@ -206,7 +206,7 @@ const OverviewForm: FC<OverviewFormProps> = ({ detail }) => {
                 )}
               />
 
-              <div className="w-[450px] grid grid-cols-2 gap-4">
+              <div className="w-full max-w-md grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="employee"
@@ -255,7 +255,7 @@ const OverviewForm: FC<OverviewFormProps> = ({ detail }) => {
                           {data
                             ?.filter(
                               (item) => item.name && item.name.trim() !== ""
-                            ) 
+                            )
                             .map((item: Industry) => (
                               <SelectItem key={item.id} value={item.name}>
                                 {item.name}
@@ -282,7 +282,7 @@ const OverviewForm: FC<OverviewFormProps> = ({ detail }) => {
                           <Button
                             variant={"outline"}
                             className={cn(
-                              "w-[450px] pl-3 text-left font-normal",
+                              "w-full max-w-md pl-3 text-left font-normal",
                               !field.value && "text-muted-foreground"
                             )}
                           >
@@ -324,9 +324,7 @@ const OverviewForm: FC<OverviewFormProps> = ({ detail }) => {
             title="About Company"
             subtitle="Brief description for your company. URLs are hyperlinked."
           >
-            <CKEditor
-              form={form}
-              name="description"            />
+            <CKEditor form={form} name="description" />
           </FieldInput>
 
           <div className="flex justify-end">

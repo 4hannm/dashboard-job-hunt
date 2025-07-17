@@ -30,22 +30,21 @@ export default async function JobDetailPage(props: {
   };
 
   return (
-    <div>
-      <div className="inline-flex items-center gap-5 mb-5">
-        <Link href="/job-listings">
-          <ArrowLeftIcon className="w-9 h-9" />
+    <div className="w-full px-4 sm:px-6 md:px-10">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 mb-5">
+        <Link href="/job-listings" className="w-fit">
+          <ArrowLeftIcon className="w-8 h-8 sm:w-9 sm:h-9" />
         </Link>
         <div>
-          <div className="text-2xl font-semibold mb-1">{job?.roles}</div>
-          <div>
-            {job?.CategoryJob?.name} . {job?.jobType} . {job?.applicants}/
-            {job?.needs} Hired
+          <div className="text-xl sm:text-2xl font-semibold mb-1">{job?.roles}</div>
+          <div className="text-sm sm:text-base text-gray-600">
+            {job?.CategoryJob?.name} · {job?.jobType} · {job?.applicants}/{job?.needs} Hired
           </div>
         </div>
       </div>
 
-      <Tabs defaultValue="applicants">
-        <TabsList className="mb-8">
+      <Tabs defaultValue="applicants" className="w-full">
+        <TabsList className="mb-6 flex flex-wrap gap-2 sm:gap-4">
           <TabsTrigger value="applicants">Applicants</TabsTrigger>
           <TabsTrigger value="jobDetails">Job Details</TabsTrigger>
         </TabsList>

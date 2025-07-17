@@ -42,7 +42,6 @@ import moment from "moment";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 
-
 const PostJobPage: FC = ({}) => {
   const { data } = useSWR<CategoryJob[]>("/api/job/categories", fetcher);
 
@@ -130,20 +129,20 @@ const PostJobPage: FC = ({}) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="mt-5 space-y-6 pt-6"
+          className="mt-5 space-y-6 pt-6 px-4 sm:px-6"
         >
           <FieldInput
             title="Job Title"
-            subtitle="Job titles must be describe one position"
+            subtitle="Job titles must describe one position"
           >
             <FormField
               control={form.control}
               name="roles"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full max-w-[450px]">
                   <FormControl>
                     <Input
-                      className="w-[450px]"
+                      className="w-full"
                       placeholder="e.g. Software Engineer"
                       {...field}
                     />
@@ -193,12 +192,12 @@ const PostJobPage: FC = ({}) => {
             title="Salary"
             subtitle="Please specify the estimated salary range for the role."
           >
-            <div className="w-[450px] flex flex-row justify-between items-center">
+            <div className="w-full max-w-[450px] flex flex-col sm:flex-row items-center gap-2">
               <FormField
                 control={form.control}
                 name="salaryFrom"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="w-full">
                     <FormControl>
                       <Input className="w-full" placeholder="$100" {...field} />
                     </FormControl>
@@ -206,12 +205,14 @@ const PostJobPage: FC = ({}) => {
                   </FormItem>
                 )}
               />
-              <span className="text-center">To</span>
+
+              <span className="text-center text-sm font-medium">To</span>
+
               <FormField
                 control={form.control}
                 name="salaryTo"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="w-full">
                     <FormControl>
                       <Input
                         className="w-full"
@@ -234,14 +235,14 @@ const PostJobPage: FC = ({}) => {
               control={form.control}
               name="categoryId"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full max-w-[450px]">
                   <FormLabel>Select Job Categories</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger className="w-[450px]">
+                      <SelectTrigger className="w-full">
                         <SelectValue placeholder="Select Job Categories" />
                       </SelectTrigger>
                     </FormControl>
@@ -270,40 +271,28 @@ const PostJobPage: FC = ({}) => {
             title="Job Descriptions"
             subtitle="Job titles must be describe one position"
           >
-            <CKEditor
-              form={form}
-              name="jobDescription"
-            />
+            <CKEditor form={form} name="jobDescription" />
           </FieldInput>
 
           <FieldInput
             title="Responsibilities"
             subtitle="Outline the core responsibilities of the position"
           >
-            <CKEditor
-              form={form}
-              name="responsibility"
-            />
+            <CKEditor form={form} name="responsibility" />
           </FieldInput>
 
           <FieldInput
             title="Who You Are"
             subtitle="Add your preferred candidates qualifications"
           >
-            <CKEditor
-              form={form}
-              name="whoYouAre"
-            />
+            <CKEditor form={form} name="whoYouAre" />
           </FieldInput>
 
           <FieldInput
             title="Nice-To-Haves"
             subtitle="Add nice-to-have skills and qualifications for the role to encourage a more diverse set of candidates to apply"
           >
-            <CKEditor
-              form={form}
-              name="niceToHaves"
-            />
+            <CKEditor form={form} name="niceToHaves" />
           </FieldInput>
 
           <FieldInput

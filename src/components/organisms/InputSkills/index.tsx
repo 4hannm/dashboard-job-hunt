@@ -25,39 +25,31 @@ const InputSkills: FC<InputSkillsProps> = ({ form, name, label }) => {
 
   const handleSaveValue = () => {
     const value = inputRef.current?.value;
+    if (!value) return;
 
-    if (value === "") {
-      return;
-    }
-
-    const newValue: any = [...values, value];
-
+    const newValue = [...values, value];
     setValues(newValue);
-
     form.setValue(name, newValue);
+    if (inputRef.current) inputRef.current.value = "";
   };
 
   const handleDeleteValue = (item: string) => {
-    const skills: any = values.filter((value: string) => item !== value);
-
-    setValues(skills);
-    form.setValue(name, skills);
+    const updated = values.filter((value) => value !== item);
+    setValues(updated);
+    form.setValue(name, updated);
   };
 
   useEffect(() => {
     const val = form.getValues(name);
-
-    if (val && val.length > 0) {
-      setValues(val);
-    }
+    if (val && val.length > 0) setValues(val);
   }, [form, name]);
 
   return (
     <FormField
       control={form.control}
       name={name}
-      render={({ field }) => (
-        <FormItem>
+      render={() => (
+        <FormItem className="w-full">
           <FormLabel className="block">{label}</FormLabel>
           <FormControl>
             <div>
@@ -70,20 +62,27 @@ const InputSkills: FC<InputSkillsProps> = ({ form, name, label }) => {
                 <PlusIcon className="w-4 h-4 mr-2" />
                 {label}
               </Button>
+
               {isHide && (
-                <div className="my-4 flex flex-row gap-4">
-                  <Input ref={inputRef} className="w-[246px]" />
-                  <Button type="button" onClick={handleSaveValue}>
+                <div className="my-4 flex flex-col sm:flex-row gap-2 sm:gap-4 w-full">
+                  <Input ref={inputRef} className="w-full sm:max-w-[246px]" />
+                  <Button
+                    type="button"
+                    onClick={handleSaveValue}
+                    className="w-full sm:w-auto"
+                  >
                     Save
                   </Button>
                 </div>
               )}
-              <div className="space-x-3">
-                {values.map((item: string, key: number) => (
+
+              <div className="flex flex-wrap gap-2 mt-2">
+                {values.map((item, index) => (
                   <Badge
-                    variant={"outline"}
-                    key={key}
+                    variant="outline"
+                    key={index}
                     onClick={() => handleDeleteValue(item)}
+                    className="cursor-pointer"
                   >
                     {item}
                     <svg

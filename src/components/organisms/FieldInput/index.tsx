@@ -10,12 +10,12 @@ interface FieldInputProps {
 const FieldInput: FC<FieldInputProps> = ({ children, subtitle, title }) => {
   return (
     <>
-      <div className="flex flex-row items-start">
-        <div className="w-[35%]">
+      <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 mb-6">
+        <div className="sm:w-[35%] w-full">
           <div className="font-semibold">{title}</div>
-          <div className="text-gray-400 w-80">{subtitle}</div>
+          <div className="text-gray-400">{subtitle}</div>
         </div>
-        {children}
+        <div className="w-full">{children}</div>
       </div>
       <Separator />
     </>

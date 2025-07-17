@@ -86,7 +86,7 @@ const SocialMediaForm: FC<SocialMediaFormProps> = ({ detail }) => {
                   <FormLabel>Facebook</FormLabel>
                   <FormControl>
                     <Input
-                      className="w-[450px]"
+                      className="w-full max-w-md"
                       placeholder="https://facebook.com/twitter"
                       {...field}
                     />
@@ -103,7 +103,7 @@ const SocialMediaForm: FC<SocialMediaFormProps> = ({ detail }) => {
                   <FormLabel>Instagram</FormLabel>
                   <FormControl>
                     <Input
-                      className="w-[450px]"
+                      className="w-full max-w-md"
                       placeholder="https://Instagram.com/twitter"
                       {...field}
                     />
@@ -120,7 +120,7 @@ const SocialMediaForm: FC<SocialMediaFormProps> = ({ detail }) => {
                   <FormLabel>Linkedin</FormLabel>
                   <FormControl>
                     <Input
-                      className="w-[450px]"
+                      className="w-full max-w-md"
                       placeholder="https://Linkedin.com/twitter"
                       {...field}
                     />
@@ -137,7 +137,7 @@ const SocialMediaForm: FC<SocialMediaFormProps> = ({ detail }) => {
                   <FormLabel>Twitter</FormLabel>
                   <FormControl>
                     <Input
-                      className="w-[450px]"
+                      className="w-full max-w-md"
                       placeholder="https://Twitter.com/twitter"
                       {...field}
                     />
@@ -154,7 +154,7 @@ const SocialMediaForm: FC<SocialMediaFormProps> = ({ detail }) => {
                   <FormLabel>Youtube</FormLabel>
                   <FormControl>
                     <Input
-                      className="w-[450px]"
+                      className="w-full max-w-md"
                       placeholder="https://Youtube.com/twitter"
                       {...field}
                     />

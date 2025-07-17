@@ -21,8 +21,8 @@ const JobDetail: FC<JobDetailProps> = ({ detail }) => {
 
   return (
     <div>
-      <div className="grid grid-cols-3 w-full gap-5">
-        <div className="col-span-2 space-y-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-5">
+        <div className="lg:col-span-2 space-y-10">
           <div>
             <div className="text-3xl font-semibold">Description</div>
             <div
@@ -130,7 +130,7 @@ const JobDetail: FC<JobDetailProps> = ({ detail }) => {
           This job comes with several perks and benefits
         </div>
 
-        <div className="grid grid-cols-4 gap-5 mt-9">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-9">
           {benefits.map((item, idx) => (
             <div key={idx}>
               <PartyPopperIcon className="w-10 h-10 text-primary mb-6" />
